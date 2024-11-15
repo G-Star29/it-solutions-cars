@@ -1,0 +1,5 @@
+/it_solutions_cars/db.sqlite3
+/it_solutions_cars/cars/migrations/
+/it_solutions_cars/users/migrations/
+/.venv/
+.idea

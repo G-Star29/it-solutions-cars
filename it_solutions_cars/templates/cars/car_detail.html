@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Автомобиль {{ car.make }}</title>
+</head>
+<body>
+    <hr>
+    <p>Марка: {{ car.make }}</p>
+    <p>Модель: {{ car.model }}</p>
+    <p>Описание: {{ car.description }}</p>
+    <p>Дата публикации: {{ car.created_at|date:"d.m.Y H:i" }}</p>
+    {% if car.updated_at %}
+        <p>Изменено: {{ car.updated_at }}</p>
+    {% endif %}
+    <hr>
+    {% if is_owner %}
+        <a href="{% url 'cars:update' car.id %}">
+            <button type="submit">Изменить</button>
+        </a>
+    {% endif %}
+    <hr>
+    <p>Комментарии:</p>
+    <ul>
+        {% for comment in comments %}
+            <li>{{ comment.author }}</li>
+            <li>{{ comment.content }}</li>
+            <li>{{ comment.created_at }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

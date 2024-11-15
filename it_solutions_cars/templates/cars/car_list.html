@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+</head>
+<body>
+    <h1>Автомобили представленные на сайте</h1>
+    <ul>
+         {% for car in cars %}
+             <hr>
+            <li>
+                <h3>{{ car.make }}</h3>
+                <h3>{{ car.model }}</h3>
+                <p>{{ car.description }}</p>
+                <p>Создано: {{ car.created_at|date:"d.m.Y H:i" }}</p>
+                {% if car.updated_at %}
+                    <p>Изменено: {{ car.updated_at }}</p>
+                {% endif %}
+                <a href="{% url 'cars:detail' car.id %}">Подробнее</a>
+            </li>
+             <hr>
+        {% endfor %}
+    </ul>
+    <form method="post" action="{% url 'users:logout' %}">
+        {% csrf_token %}
+        <button type="submit">Выйти</button>
+    </form>
+</body>
+</html>
