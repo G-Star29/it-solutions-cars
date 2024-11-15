@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Удаление автомобиля{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <h2>Вы уверены, что хотите удалить этот автомобиль?</h2>
+        <p><strong>ID:</strong> {{ car.id }}</p>
+        <p><strong>Марка:</strong> {{ car.make }}</p>
+        <p><strong>Модель:</strong> {{ car.model }}</p>
+        <p><strong>Год выпуска:</strong> {{ car.year }}</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Удалить</button>
+            <a href="{% url 'cars:detail' car.id %}" class="btn btn-secondary">Отмена</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

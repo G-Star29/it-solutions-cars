@@ -1,32 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Автомобиль {{ car.make }}</title>
-</head>
-<body>
-    <hr>
-    <p>Марка: {{ car.make }}</p>
-    <p>Модель: {{ car.model }}</p>
-    <p>Описание: {{ car.description }}</p>
-    <p>Дата публикации: {{ car.created_at|date:"d.m.Y H:i" }}</p>
-    {% if car.updated_at %}
-        <p>Изменено: {{ car.updated_at }}</p>
-    {% endif %}
-    <hr>
-    {% if is_owner %}
-        <a href="{% url 'cars:update' car.id %}">
-            <button type="submit">Изменить</button>
-        </a>
-    {% endif %}
-    <hr>
-    <p>Комментарии:</p>
-    <ul>
-        {% for comment in comments %}
-            <li>{{ comment.author }}</li>
-            <li>{{ comment.content }}</li>
-            <li>{{ comment.created_at }}</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Детали автомобиля{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2>Детали автомобиля</h2>
+        <p><strong>ID:</strong> {{ car.id }}</p>
+        <p><strong>Марка:</strong> {{ car.make }}</p>
+        <p><strong>Модель:</strong> {{ car.model }}</p>
+        <p><strong>Год выпуска:</strong> {{ car.year }}</p>
+        <p><strong>Описание:</strong> {{ car.description }}</p>
+        <p><small>Создано:</small> {{ car.created_at|date:"d-m-Y H:i" }}</p>
+        {% if car.updated_at %}
+        <p><small>Изменено:</small> {{ car.updated_at|date:"d-m-Y H:i" }}</p>
+        {% endif %}
+        {% if is_owner %}
+        <a href="{% url 'cars:update' car.pk %}">Редактировать</a>
+        <a href="{% url 'cars:delete' car.pk %}">Удалить</a>
+        {% endif %}
+         <!-- Отображение комментариев -->
+        {% if car.comments.exists %}
+            <h3>Комментарии</h3>
+            <ul class="list-unstyled">
+                {% for comment in car.comments.all %}
+                    <li>
+                        <strong>{{ comment.author.username }}:</strong> {{ comment.content }}
+                        <p><small>{{ comment.created_at|date:"d-m-Y H:i" }}</small></p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Нет комментариев.</p>
+        {% endif %}
+
+        <!-- Форма для добавления нового комментария -->
+        {% if user.is_authenticated %}
+            <h3>Добавить комментарий</h3>
+            <form method="post" action="{% url 'cars:add_comment' car.id %}">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit" class="btn btn-primary">Отправить</button>
+            </form>
+        {% else %}
+            <p>Пожалуйста, <a href="{% url 'users:login' %}">войдите</a>, чтобы добавлять комментарии.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

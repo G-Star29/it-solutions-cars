@@ -1,7 +1,8 @@
 from datetime import datetime
 
 from django import forms
-from .models import Car
+from .models import Car, Comment
+
 
 class CarCreationForm(forms.ModelForm):
     """
@@ -28,3 +29,8 @@ class CarCreationForm(forms.ModelForm):
             car.save()
 
         return car
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('content',)
