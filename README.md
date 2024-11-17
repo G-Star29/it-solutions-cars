@@ -10,7 +10,7 @@
 - Получение, создание комментариев.
 - Получение, обновление и проверка токена авторизации (JWT).
 
-Подробней про API [по ссылке](http://localhost/api/schema/redoc)<br>
+Redoc API: your-domain/api/schema/redoc/
 <br>
 
 ### Технологии
