@@ -16,6 +16,7 @@ class CarCreationForm(forms.ModelForm):
         widget=forms.NumberInput(),
         min_value=1885,
         max_value=datetime.utcnow().year,
+        required=False,
     )
 
     def save(self, commit=True, user=None):

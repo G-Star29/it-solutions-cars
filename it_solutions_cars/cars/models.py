@@ -8,7 +8,7 @@ class Car(models.Model):
 
     make = models.CharField(max_length=100)
     model = models.CharField(max_length=100)
-    year = models.IntegerField()
+    year = models.IntegerField(null=True)
     description = models.TextField(max_length=1000)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True)

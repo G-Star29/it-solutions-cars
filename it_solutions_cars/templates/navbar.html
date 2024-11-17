@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{% url 'cars:index' %}">Моя Страница</a>
+    <a class="navbar-brand" href="{% url 'cars:index' %}">Автомобили</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -8,6 +8,9 @@
             {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'cars:index' %}">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'cars:create' %}">Создать</a>
                 </li>
                 <li class="nav-item">
                     <form id="logout-form" action="{% url 'users:logout' %}" method="post" class="d-inline">
